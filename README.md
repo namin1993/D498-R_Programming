@@ -29,17 +29,20 @@ From Udacity's course on R-Programming, I will use the 3 CSV files within the R-
 For each city, there were over 62,500 trips taken in June. Therefore, this data can be used to prepare for maintenance costs for each bike and allotting enough bike stations for the month of June.</li>
 
 <li>What is the average travel time for different users in different cities?: The average travel time in minutes for each city depending on the customer type are as follows:
-Chicago:
-    Subscriber: 11.7 minutes
-    Dependent: 5.18 minutes
-    Customer: 31 minutes
-New York:
-    Subscriber: 12.8 minutes
-    Customer: 34.3 minutes
-    Unidentified Customer Type: 24.5 minutes
-Washington:
-    Subscriber: 12.3 minutes
-    Customer: 43.9 minutes
+
+- Chicago:
+    - Subscriber: 11.7 minutes
+    - Dependent: 5.18 minutes
+    - Customer: 31 minutes
+    
+- New York:
+    - Subscriber: 12.8 minutes
+    - Customer: 34.3 minutes
+    - Unidentified Customer Type: 24.5 minutes
+    
+- Washington:
+    - Subscriber: 12.3 minutes
+    - Customer: 43.9 minutes
 </li>
 
 <li>What is the most common trip (start -> end) per city?: 
@@ -53,7 +56,7 @@ The most common bike trips per city are as follows:
 
 </ol>
 
-#### Files In Repo
+#### Files In Repository:
 <ul>
 <li>D498-Bike_Rental.R</li>
 <li>D498-Bike_Rental.html</li>
