@@ -121,6 +121,48 @@ most_common_month_per_city <- bind_rows(
 )
 
 # ---------------------------
+# Q1:Show results as tables
+# ---------------------------
+cat("Most common month per city:\n")
+print(most_common_month_per_city)
+
+# ---------------------------
+# Q1: Show results as visuals
+# ---------------------------
+# ---------------------------
+# Question 1: most common month per city
+#
+# Answer: For each city, the most common month in which there were the most bike trips
+# were all in June. 
+# In Chicago, 32.7% of all trips taken on Citibike were in June.
+# In New York, 25.3% of all trips taken on Citibike were in June.
+# In Washington, 22.8% of all trips taken on Citibike were in June.
+# For each city, there were over 62,500 trips taken in June. Therefore, this data 
+# can be used to prepare for maintenance costs for each bike and allotting enough 
+# bike stations for the month of June.
+# ---------------------------
+ggplot(most_common_month_per_city, aes(x = city, y = trips, fill = Month)) +
+  # Position graph vertically by default
+  # Adjust the bars to prevent overlap
+  geom_col(position = "dodge") +
+  geom_text(aes(label = paste0(round(pct * 100, 1), "%")), 
+            vjust = -0.5, size = 3.5) +
+  # Label axes
+  labs(
+    title = "Most Common Month for Bike Trips per City",
+    x = "City",
+    y = "Number of Trips",
+    fill = "Month"
+  ) +
+  # Minimalistic Theme with base font size 13
+  theme_minimal(base_size = 13) +
+  # Define plot title and legend
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  )
+
+# ---------------------------
 # Question 2: average travel time for users in different cities
 # (we show avg & median in seconds and minutes, and number of trips)
 # ---------------------------
@@ -156,6 +198,52 @@ avg_travel_by_city_user <- bind_rows(
 )
 
 # ---------------------------
+# Q2: Show results as tables
+# ---------------------------
+cat("\nAverage travel time by user type (per city):\n")
+print(avg_travel_by_city_user)
+
+# ---------------------------
+# Q2: Show results as visuals
+# ---------------------------
+# ---------------------------
+# Question 2: average travel time for users in different cities
+#
+# Answer: The average travel time in minutes for each city depending on the customer type
+# are as follows:
+# Chicago:
+#         Subscriber: 11.7 minutes
+#         Dependent: 5.18 minutes
+#         Customer: 31 minutes
+# New York:
+#         Subscriber: 12.8 minutes
+#         Customer: 34.3 minutes
+#         Unidentified Customer Type: 24.5 minutes
+# Washington:
+#         Subscriber: 12.3 minutes
+#         Customer: 43.9 minutes
+# ---------------------------
+ggplot(avg_travel_by_city_user, aes(x = reorder(city, avg_minutes), y = avg_minutes, fill = User.Type)) +
+  # Adjust the bars to prevent overlap
+  geom_col(position = "dodge") +
+  # Position graph horizontally
+  coord_flip() +
+  # Label axes
+  labs(
+    title = "Average Trip Duration by City and User Type",
+    x = "City",
+    y = "Average Duration (minutes)",
+    fill = "User Type"
+  ) +
+  # Minimalistic Publication-Ready Theme with base font size 13 and no grid lines
+  theme_pubr(base_size = 13) +
+  # Define plot title and legend
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  )
+
+# ---------------------------
 # Question 3: most common trip (start -> end) per city
 # ---------------------------
 most_common_trip_per_city <- bind_rows(
@@ -180,93 +268,15 @@ most_common_trip_per_city <- bind_rows(
 )
 
 # ---------------------------
-# Show results as tables
+# Q3: Show results as tables
 # ---------------------------
-cat("Most common month per city:\n")
-print(most_common_month_per_city)
-
-cat("\nAverage travel time by user type (per city):\n")
-print(avg_travel_by_city_user)
-
 cat("\nMost common trip (start -> end) per city:\n")
 print(most_common_trip_per_city)
 
 
 # ---------------------------
-# Show results as visuals
+# Q3: Show results as visuals
 # ---------------------------
-
-# ---------------------------
-# Question 1: most common month per city
-#
-# Answer: For each city, the most common month in which there were the most bike trips
-# were all in June. 
-# In Chicago, 32.7% of all trips taken on Citibike were in June.
-# In New York, 25.3% of all trips taken on Citibike were in June.
-# In Washington, 22.8% of all trips taken on Citibike were in June.
-# For each city, there were over 62,500 trips taken in June. Therefore, this data 
-# can be used to prepare for maintenance costs for each bike and allotting enough 
-# bike stations for the month of June.
-# ---------------------------
-plot_month <- ggplot(most_common_month_per_city, aes(x = city, y = trips, fill = Month)) +
-  # Position graph vertically by default
-  # Adjust the bars to prevent overlap
-  geom_col(position = "dodge") +
-  geom_text(aes(label = paste0(round(pct * 100, 1), "%")), 
-            vjust = -0.5, size = 3.5) +
-  # Label axes
-  labs(
-    title = "Most Common Month for Bike Trips per City",
-    x = "City",
-    y = "Number of Trips",
-    fill = "Month"
-  ) +
-  # Minimalistic Theme with base font size 13
-  theme_minimal(base_size = 13) +
-  # Define plot title and legend
-  theme(
-    plot.title = element_text(face = "bold", hjust = 0.5),
-    legend.position = "bottom"
-  )
-
-# ---------------------------
-# Question 2: average travel time for users in different cities
-#
-# Answer: The average travel time in minutes for each city depending on the customer type
-# are as follows:
-# Chicago:
-#         Subscriber: 11.7 minutes
-#         Dependent: 5.18 minutes
-#         Customer: 31 minutes
-# New York:
-#         Subscriber: 12.8 minutes
-#         Customer: 34.3 minutes
-#         Unidentified Customer Type: 24.5 minutes
-# Washington:
-#         Subscriber: 12.3 minutes
-#         Customer: 43.9 minutes
-# ---------------------------
-
-plot_duration <- ggplot(avg_travel_by_city_user, aes(x = reorder(city, avg_minutes), y = avg_minutes, fill = User.Type)) +
-  # Adjust the bars to prevent overlap
-  geom_col(position = "dodge") +
-  # Position graph horizontally
-  coord_flip() +
-  # Label axes
-  labs(
-    title = "Average Trip Duration by City and User Type",
-    x = "City",
-    y = "Average Duration (minutes)",
-    fill = "User Type"
-  ) +
-  # Minimalistic Publication-Ready Theme with base font size 13 and no grid lines
-  theme_pubr(base_size = 13) +
-  # Define plot title and legend
-  theme(
-    plot.title = element_text(face = "bold", hjust = 0.5),
-    legend.position = "bottom"
-  )
-
 # ---------------------------
 # Question 3: most common trip (start -> end) per city
 #
@@ -275,7 +285,7 @@ plot_duration <- ggplot(avg_travel_by_city_user, aes(x = reorder(city, avg_minut
 # New York: E 7 St & Avenue A -> Cooper Square & E 7 St at 168 trips
 # Washington: Jefferson Dr & 14th St SW -> Jefferson Dr & 14th St SW at 673 trips
 # ---------------------------
-plot_trip <- ggplot(most_common_trip_per_city, aes(x = reorder(city, trips), y = trips, fill = city)) +
+ggplot(most_common_trip_per_city, aes(x = reorder(city, trips), y = trips, fill = city)) +
   # Don't require legend
   geom_col(show.legend = FALSE) +
   geom_text(aes(label = trip), hjust = 1.05, size = 3, color = "white") +
@@ -294,12 +304,6 @@ plot_trip <- ggplot(most_common_trip_per_city, aes(x = reorder(city, trips), y =
     plot.title = element_text(face = "bold", hjust = 0.5)
   )
 
-# Show all graphs
-ggarrange(
-  plot_month, plot_duration, plot_trip,
-  ncol = 1, nrow = 3,
-  labels = c("A", "B", "C")
-)
 
 # Convert R-Script to Html page
 knitr::spin("D498-Bike_Rental.R", knit = FALSE)
